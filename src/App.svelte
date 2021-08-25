@@ -1,4 +1,6 @@
 <script>
+	// import Minecraft from "./Minecraft.svelte"
+	import Menu from "./Menu.svelte"
 	// TODO(N3tt): Create a parser that parses arbitrary game setting file and creates content dynamically
 	// EVENTUALLY, move this in some sort of database or file or whatever, just not like this (it hurts even me and I can take a lot of bs)
 	let gameSettings = [
@@ -321,17 +323,17 @@
 			"tooltip": "Enables remote access to the server console. "
 		}
 	]
-
-</script> 
+</script>
 
 <main>
+	<Menu/>
+
 	<h1>Define your configs:</h1>
 		<div class="settings">
 			{#each gameSettings as setting}
 			<div class="setting">
 				<div class="settings-header">
 					{setting.name}
-					<!-- <button class="question-circle" on:click={dispatch(setting.name)}><b>?</b></button> -->
 				</div>
 
 				<div class="settings-input">
@@ -390,7 +392,7 @@
 	}
 
 	code:before {
-		content: counter(line);
+		content: counter(line, decimal-leading-zero);
 		display: inline-block;
 		border-right: 1px solid #ddd;
 		padding: 0 0.5rem;
@@ -435,12 +437,4 @@
 		font-size: small;
 		padding-left: 1%;
 	}
-
-	/* .question-circle {
-		border: 1px solid white;
-		border-radius: 50%;
-		width: 32px;
-		height: 32px;
-		font-size: large;
-	} */
 </style>
