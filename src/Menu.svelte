@@ -8,6 +8,12 @@
             "game": "minecraft"
         })
     }
+
+    function loadTerraria() {
+        dispatcher("loadGamePage", {
+            "game": "terraria"
+        })
+    }
 </script>
 
 <nav class="menu">
@@ -16,7 +22,7 @@
         Minecraft
     </button>
 
-    <button class="menu-item">
+    <button class="menu-item" on:click={loadTerraria}>
         <img src="https://n9y2r3c6.rocketcdn.me/wp-content/uploads/2020/04/terraria-logo.png" alt="">
         Terraria
     </button>

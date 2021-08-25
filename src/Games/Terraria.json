@@ -1,0 +1,101 @@
+[
+    {
+        "name": "world",
+        "value": "",
+        "type": "str",
+        "tooltip": "Load a world and automatically start the server. You have to specify a path in the format: C:\/path\/to\/world.wld"
+    },
+    {
+        "name": "autocreate",
+        "value": 2,
+        "type": "int",
+        "tooltip": "Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large)"
+    },
+    {
+        "name": "seed",
+        "value": "",
+        "type": "str",
+        "tooltip": "Sets the world seed when using autocreate"
+    },
+    {
+        "name": "worldname",
+        "value": "World",
+        "type": "str",
+        "tooltip": "Sets the name of the world when using autocreate"
+    },
+    {
+        "name": "difficulty",
+        "value": 0,
+        "type": "int",
+        "tooltip": "Sets world difficulty when using -autocreate. Options: 0(normal), 1(expert), 2(master), 3(journey)"
+    },
+    {
+        "name": "maxplayers",
+        "value": 8,
+        "type": "int",
+        "tooltip": "Sets the max number of players allowed on a server. Value must be between 1 and 255"
+    },
+    {
+        "name": "port",
+        "value": 7777,
+        "type": "int",
+        "tooltip": "Set the port number"
+    },
+    {
+        "name": "password",
+        "value": "",
+        "type": "str",
+        "tooltip": "Set the server password"
+    },
+    {
+        "name": "motd",
+        "value": "Please don’t cut the purple trees!",
+        "type": "str",
+        "tooltip": "Set the message of the day"
+    },
+    {
+        "name": "worldpath",
+        "value": "",
+        "type": "str",
+        "tooltip": "Sets the folder where world files will be stored. You have to specify a path in the format: C:\/path\/to\/folder"
+    },
+    {
+        "name": "banlist",
+        "value": "banlist.txt",
+        "type": "str",
+        "tooltip": "The location of the banlist. Defaults to 'banlist.txt' in the working directory."
+    },
+    {
+        "name": "secure",
+        "value": true,
+        "type": "bool",
+        "tooltip": "Adds additional cheat protection."
+    },
+    {
+        "name": "language",
+        "selectOf": [
+            "en/US", "de/DE", "it/IT", "fr/FR", "es/ES", "ru/RU", "zh/Hans", "pt/BR", "pl/PL"
+        ],
+        "value": "en/US",
+        "type": "dropdown",
+        "tooltip": "Adds additional cheat protection."
+    },
+    {
+        "name": "upnp",
+        "value": true,
+        "type": "bool",
+        "tooltip": "Automatically forward ports with uPNP"
+    },
+    {
+        "name": "npcstream",
+        "value": "60",
+        "type": "int",
+        "tooltip": "Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off."
+    },
+    {
+        "name": "priority",
+        "value": 1,
+        "type": "int",
+        "tooltip": "Default system priority 0:Realtime, 1:High, 2:AboveNormal, 3:Normal, 4:BelowNormal, 5:Idle"
+    }
+]

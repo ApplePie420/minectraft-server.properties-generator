@@ -1,10 +1,20 @@
 <script>
+	export let Game = ""
 	import Minecraft from "./Games/Minecraft.json"
+	import Terraria from "./Games/Terraria.json"
+	
+	let GameSettings = "i"
+	
+	if(Game == "minecraft") {
+		GameSettings = Minecraft
+	} else if(Game == "terraria") {
+		GameSettings = Terraria
+	}
 </script> 
 
 <h1>Define your configs:</h1>
 <div class="settings">
-    {#each Minecraft as setting}
+    {#each GameSettings as setting}
         <div class="setting">
             <div class="settings-header">
                 {setting.name}
@@ -36,7 +46,7 @@
 		
 <h1>Resulting config file:</h1>
     <pre>
-        {#each Minecraft as setting}
+        {#each GameSettings as setting}
             <code>{setting.name}={setting.value}</code><br>
         {/each}
     </pre>

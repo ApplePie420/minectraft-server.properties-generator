@@ -477,25 +477,25 @@ var app = (function () {
     			if (!src_url_equal(img0.src, img0_src_value = "https://cdn.icon-icons.com/icons2/2699/PNG/512/minecraft_logo_icon_168974.png")) attr_dev(img0, "src", img0_src_value);
     			attr_dev(img0, "alt", "");
     			attr_dev(img0, "class", "svelte-1sawwus");
-    			add_location(img0, file$2, 14, 8, 320);
+    			add_location(img0, file$2, 20, 8, 436);
     			attr_dev(button0, "class", "menu-item svelte-1sawwus");
-    			add_location(button0, file$2, 13, 4, 260);
+    			add_location(button0, file$2, 19, 4, 376);
     			if (!src_url_equal(img1.src, img1_src_value = "https://n9y2r3c6.rocketcdn.me/wp-content/uploads/2020/04/terraria-logo.png")) attr_dev(img1, "src", img1_src_value);
     			attr_dev(img1, "alt", "");
     			attr_dev(img1, "class", "svelte-1sawwus");
-    			add_location(img1, file$2, 19, 8, 489);
+    			add_location(img1, file$2, 25, 8, 629);
     			attr_dev(button1, "class", "menu-item svelte-1sawwus");
-    			add_location(button1, file$2, 18, 4, 454);
+    			add_location(button1, file$2, 24, 4, 570);
     			if (!src_url_equal(img2.src, img2_src_value = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/792818ef-699f-40d1-b83e-4ba22fbac972/d6fdhno-8f879b94-02ca-4c88-bf51-e0819597ff13.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzc5MjgxOGVmLTY5OWYtNDBkMS1iODNlLTRiYTIyZmJhYzk3MlwvZDZmZGhuby04Zjg3OWI5NC0wMmNhLTRjODgtYmY1MS1lMDgxOTU5N2ZmMTMucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.KQoE9NUAIl57WGNKeSnUf0pAOculgH7ZuslANTVQsdg")) attr_dev(img2, "src", img2_src_value);
     			attr_dev(img2, "alt", "");
     			attr_dev(img2, "class", "svelte-1sawwus");
-    			add_location(img2, file$2, 24, 8, 654);
+    			add_location(img2, file$2, 30, 8, 794);
     			attr_dev(button2, "class", "menu-item svelte-1sawwus");
-    			add_location(button2, file$2, 23, 4, 619);
+    			add_location(button2, file$2, 29, 4, 759);
     			attr_dev(button3, "class", "menu-item svelte-1sawwus");
-    			add_location(button3, file$2, 29, 4, 1282);
+    			add_location(button3, file$2, 35, 4, 1422);
     			attr_dev(nav, "class", "menu svelte-1sawwus");
-    			add_location(nav, file$2, 12, 0, 237);
+    			add_location(nav, file$2, 18, 0, 353);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -517,7 +517,11 @@ var app = (function () {
     			append_dev(nav, button3);
 
     			if (!mounted) {
-    				dispose = listen_dev(button0, "click", /*loadMinecraft*/ ctx[0], false, false, false);
+    				dispose = [
+    					listen_dev(button0, "click", /*loadMinecraft*/ ctx[0], false, false, false),
+    					listen_dev(button1, "click", /*loadTerraria*/ ctx[1], false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
@@ -527,7 +531,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(nav);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -551,6 +555,10 @@ var app = (function () {
     		dispatcher("loadGamePage", { "game": "minecraft" });
     	}
 
+    	function loadTerraria() {
+    		dispatcher("loadGamePage", { "game": "terraria" });
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -560,10 +568,11 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		createEventDispatcher,
     		dispatcher,
-    		loadMinecraft
+    		loadMinecraft,
+    		loadTerraria
     	});
 
-    	return [loadMinecraft];
+    	return [loadMinecraft, loadTerraria];
     }
 
     class Menu extends SvelteComponentDev {
@@ -590,15 +599,18 @@ var app = (function () {
     	let switch_instance;
     	let current;
     	menu = new Menu({ $$inline: true });
-    	menu.$on("loadGamePage", /*loadPage*/ ctx[1]);
+    	menu.$on("loadGamePage", /*loadPage*/ ctx[2]);
     	var switch_value = /*GameContent*/ ctx[0];
 
     	function switch_props(ctx) {
-    		return { $$inline: true };
+    		return {
+    			props: { Game: /*gameEvent*/ ctx[1] },
+    			$$inline: true
+    		};
     	}
 
     	if (switch_value) {
-    		switch_instance = new switch_value(switch_props());
+    		switch_instance = new switch_value(switch_props(ctx));
     	}
 
     	const block = {
@@ -607,7 +619,7 @@ var app = (function () {
     			create_component(menu.$$.fragment);
     			t = space();
     			if (switch_instance) create_component(switch_instance.$$.fragment);
-    			add_location(main, file$1, 14, 0, 457);
+    			add_location(main, file$1, 18, 0, 414);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -624,6 +636,9 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
+    			const switch_instance_changes = {};
+    			if (dirty & /*gameEvent*/ 2) switch_instance_changes.Game = /*gameEvent*/ ctx[1];
+
     			if (switch_value !== (switch_value = /*GameContent*/ ctx[0])) {
     				if (switch_instance) {
     					group_outros();
@@ -637,13 +652,15 @@ var app = (function () {
     				}
 
     				if (switch_value) {
-    					switch_instance = new switch_value(switch_props());
+    					switch_instance = new switch_value(switch_props(ctx));
     					create_component(switch_instance.$$.fragment);
     					transition_in(switch_instance.$$.fragment, 1);
     					mount_component(switch_instance, main, null);
     				} else {
     					switch_instance = null;
     				}
+    			} else if (switch_value) {
+    				switch_instance.$set(switch_instance_changes);
     			}
     		},
     		i: function intro(local) {
@@ -679,12 +696,17 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let GameContent;
+    	let gameEvent;
 
-    	// TODO(N3tt): Create a parser that parses arbitrary game setting file and creates content dynamically
-    	// EVENTUALLY, move this in some sort of database or file or whatever, just not like this (it hurts even me and I can take a lot of bs)
     	function loadPage(event) {
-    		if (event.detail.game == "minecraft") {
-    			Promise.resolve().then(function () { return Game$1; }).then(res => $$invalidate(0, GameContent = res.default));
+    		let response = event.detail.game;
+
+    		if (response == "minecraft") {
+    			Promise.resolve().then(function () { return Game; }).then(res => $$invalidate(0, GameContent = res.default));
+    			$$invalidate(1, gameEvent = "minecraft");
+    		} else if (response == "terraria") {
+    			Promise.resolve().then(function () { return Game; }).then(res => $$invalidate(0, GameContent = res.default));
+    			$$invalidate(1, gameEvent = "terraria");
     		}
     	}
 
@@ -694,17 +716,18 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ GameContent, Menu, loadPage });
+    	$$self.$capture_state = () => ({ GameContent, gameEvent, Menu, loadPage });
 
     	$$self.$inject_state = $$props => {
     		if ('GameContent' in $$props) $$invalidate(0, GameContent = $$props.GameContent);
+    		if ('gameEvent' in $$props) $$invalidate(1, gameEvent = $$props.gameEvent);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [GameContent, loadPage];
+    	return [GameContent, gameEvent, loadPage];
     }
 
     class App extends SvelteComponentDev {
@@ -1051,35 +1074,145 @@ var app = (function () {
     	}
     ];
 
+    var Terraria = [
+    	{
+    		name: "world",
+    		value: "",
+    		type: "str",
+    		tooltip: "Load a world and automatically start the server. You have to specify a path in the format: C:/path/to/world.wld"
+    	},
+    	{
+    		name: "autocreate",
+    		value: 2,
+    		type: "int",
+    		tooltip: "Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large)"
+    	},
+    	{
+    		name: "seed",
+    		value: "",
+    		type: "str",
+    		tooltip: "Sets the world seed when using autocreate"
+    	},
+    	{
+    		name: "worldname",
+    		value: "World",
+    		type: "str",
+    		tooltip: "Sets the name of the world when using autocreate"
+    	},
+    	{
+    		name: "difficulty",
+    		value: 0,
+    		type: "int",
+    		tooltip: "Sets world difficulty when using -autocreate. Options: 0(normal), 1(expert), 2(master), 3(journey)"
+    	},
+    	{
+    		name: "maxplayers",
+    		value: 8,
+    		type: "int",
+    		tooltip: "Sets the max number of players allowed on a server. Value must be between 1 and 255"
+    	},
+    	{
+    		name: "port",
+    		value: 7777,
+    		type: "int",
+    		tooltip: "Set the port number"
+    	},
+    	{
+    		name: "password",
+    		value: "",
+    		type: "str",
+    		tooltip: "Set the server password"
+    	},
+    	{
+    		name: "motd",
+    		value: "Please don’t cut the purple trees!",
+    		type: "str",
+    		tooltip: "Set the message of the day"
+    	},
+    	{
+    		name: "worldpath",
+    		value: "",
+    		type: "str",
+    		tooltip: "Sets the folder where world files will be stored. You have to specify a path in the format: C:/path/to/folder"
+    	},
+    	{
+    		name: "banlist",
+    		value: "banlist.txt",
+    		type: "str",
+    		tooltip: "The location of the banlist. Defaults to 'banlist.txt' in the working directory."
+    	},
+    	{
+    		name: "secure",
+    		value: true,
+    		type: "bool",
+    		tooltip: "Adds additional cheat protection."
+    	},
+    	{
+    		name: "language",
+    		selectOf: [
+    			"en/US",
+    			"de/DE",
+    			"it/IT",
+    			"fr/FR",
+    			"es/ES",
+    			"ru/RU",
+    			"zh/Hans",
+    			"pt/BR",
+    			"pl/PL"
+    		],
+    		value: "en/US",
+    		type: "dropdown",
+    		tooltip: "Adds additional cheat protection."
+    	},
+    	{
+    		name: "upnp",
+    		value: true,
+    		type: "bool",
+    		tooltip: "Automatically forward ports with uPNP"
+    	},
+    	{
+    		name: "npcstream",
+    		value: "60",
+    		type: "int",
+    		tooltip: "Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off."
+    	},
+    	{
+    		name: "priority",
+    		value: 1,
+    		type: "int",
+    		tooltip: "Default system priority 0:Realtime, 1:High, 2:AboveNormal, 3:Normal, 4:BelowNormal, 5:Idle"
+    	}
+    ];
+
     /* src/Game.svelte generated by Svelte v3.42.2 */
     const file = "src/Game.svelte";
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
+    	child_ctx[6] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[5] = list[i];
-    	child_ctx[8] = list;
-    	child_ctx[9] = i;
+    	child_ctx[6] = list[i];
+    	child_ctx[9] = list;
+    	child_ctx[10] = i;
     	return child_ctx;
     }
 
     function get_each_context_2(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
-    // (21:53) 
+    // (31:53) 
     function create_if_block_3(ctx) {
     	let select;
     	let mounted;
     	let dispose;
-    	let each_value_2 = /*setting*/ ctx[5].selectOf;
+    	let each_value_2 = /*setting*/ ctx[6].selectOf;
     	validate_each_argument(each_value_2);
     	let each_blocks = [];
 
@@ -1088,7 +1221,7 @@ var app = (function () {
     	}
 
     	function select_change_handler() {
-    		/*select_change_handler*/ ctx[4].call(select, /*each_value_1*/ ctx[8], /*setting_index_1*/ ctx[9]);
+    		/*select_change_handler*/ ctx[5].call(select, /*each_value_1*/ ctx[9], /*setting_index_1*/ ctx[10]);
     	}
 
     	const block = {
@@ -1099,8 +1232,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			if (/*setting*/ ctx[5].value === void 0) add_render_callback(select_change_handler);
-    			add_location(select, file, 21, 20, 845);
+    			if (/*setting*/ ctx[6].value === void 0) add_render_callback(select_change_handler);
+    			add_location(select, file, 31, 20, 1060);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, select, anchor);
@@ -1109,7 +1242,7 @@ var app = (function () {
     				each_blocks[i].m(select, null);
     			}
 
-    			select_option(select, /*setting*/ ctx[5].value);
+    			select_option(select, /*setting*/ ctx[6].value);
 
     			if (!mounted) {
     				dispose = listen_dev(select, "change", select_change_handler);
@@ -1119,8 +1252,8 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*Minecraft*/ 1) {
-    				each_value_2 = /*setting*/ ctx[5].selectOf;
+    			if (dirty & /*GameSettings*/ 1) {
+    				each_value_2 = /*setting*/ ctx[6].selectOf;
     				validate_each_argument(each_value_2);
     				let i;
 
@@ -1143,8 +1276,8 @@ var app = (function () {
     				each_blocks.length = each_value_2.length;
     			}
 
-    			if (dirty & /*Minecraft*/ 1) {
-    				select_option(select, /*setting*/ ctx[5].value);
+    			if (dirty & /*GameSettings*/ 1) {
+    				select_option(select, /*setting*/ ctx[6].value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -1159,27 +1292,27 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(21:53) ",
+    		source: "(31:53) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (18:49) 
+    // (28:49) 
     function create_if_block_2(ctx) {
     	let input;
     	let t0;
     	let span;
     	let t1;
-    	let t2_value = /*setting*/ ctx[5].value + "";
+    	let t2_value = /*setting*/ ctx[6].value + "";
     	let t2;
     	let t3;
     	let mounted;
     	let dispose;
 
     	function input_change_handler() {
-    		/*input_change_handler*/ ctx[3].call(input, /*each_value_1*/ ctx[8], /*setting_index_1*/ ctx[9]);
+    		/*input_change_handler*/ ctx[4].call(input, /*each_value_1*/ ctx[9], /*setting_index_1*/ ctx[10]);
     	}
 
     	const block = {
@@ -1192,14 +1325,14 @@ var app = (function () {
     			t3 = text(")");
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "class", "svelte-nozh0i");
-    			add_location(input, file, 18, 20, 618);
+    			add_location(input, file, 28, 20, 833);
     			attr_dev(span, "class", "checkboxState svelte-nozh0i");
-    			add_location(span, file, 19, 20, 718);
+    			add_location(span, file, 29, 20, 933);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
-    			set_input_value(input, /*setting*/ ctx[5].value);
-    			input.checked = /*setting*/ ctx[5].value;
+    			set_input_value(input, /*setting*/ ctx[6].value);
+    			input.checked = /*setting*/ ctx[6].value;
     			insert_dev(target, t0, anchor);
     			insert_dev(target, span, anchor);
     			append_dev(span, t1);
@@ -1214,15 +1347,15 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*Minecraft*/ 1) {
-    				set_input_value(input, /*setting*/ ctx[5].value);
+    			if (dirty & /*GameSettings*/ 1) {
+    				set_input_value(input, /*setting*/ ctx[6].value);
     			}
 
-    			if (dirty & /*Minecraft*/ 1) {
-    				input.checked = /*setting*/ ctx[5].value;
+    			if (dirty & /*GameSettings*/ 1) {
+    				input.checked = /*setting*/ ctx[6].value;
     			}
 
-    			if (dirty & /*Minecraft*/ 1 && t2_value !== (t2_value = /*setting*/ ctx[5].value + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*GameSettings*/ 1 && t2_value !== (t2_value = /*setting*/ ctx[6].value + "")) set_data_dev(t2, t2_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(input);
@@ -1237,21 +1370,21 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(18:49) ",
+    		source: "(28:49) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (16:48) 
+    // (26:48) 
     function create_if_block_1(ctx) {
     	let input;
     	let mounted;
     	let dispose;
 
     	function input_input_handler_1() {
-    		/*input_input_handler_1*/ ctx[2].call(input, /*each_value_1*/ ctx[8], /*setting_index_1*/ ctx[9]);
+    		/*input_input_handler_1*/ ctx[3].call(input, /*each_value_1*/ ctx[9], /*setting_index_1*/ ctx[10]);
     	}
 
     	const block = {
@@ -1259,11 +1392,11 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "svelte-nozh0i");
-    			add_location(input, file, 16, 20, 501);
+    			add_location(input, file, 26, 20, 716);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
-    			set_input_value(input, /*setting*/ ctx[5].value);
+    			set_input_value(input, /*setting*/ ctx[6].value);
 
     			if (!mounted) {
     				dispose = listen_dev(input, "input", input_input_handler_1);
@@ -1273,8 +1406,8 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*Minecraft*/ 1 && input.value !== /*setting*/ ctx[5].value) {
-    				set_input_value(input, /*setting*/ ctx[5].value);
+    			if (dirty & /*GameSettings*/ 1 && input.value !== /*setting*/ ctx[6].value) {
+    				set_input_value(input, /*setting*/ ctx[6].value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -1288,21 +1421,21 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(16:48) ",
+    		source: "(26:48) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (14:16) {#if setting.type == "int"}
+    // (24:16) {#if setting.type == "int"}
     function create_if_block(ctx) {
     	let input;
     	let mounted;
     	let dispose;
 
     	function input_input_handler() {
-    		/*input_input_handler*/ ctx[1].call(input, /*each_value_1*/ ctx[8], /*setting_index_1*/ ctx[9]);
+    		/*input_input_handler*/ ctx[2].call(input, /*each_value_1*/ ctx[9], /*setting_index_1*/ ctx[10]);
     	}
 
     	const block = {
@@ -1310,11 +1443,11 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "number");
     			attr_dev(input, "class", "svelte-nozh0i");
-    			add_location(input, file, 14, 20, 383);
+    			add_location(input, file, 24, 20, 598);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, input, anchor);
-    			set_input_value(input, /*setting*/ ctx[5].value);
+    			set_input_value(input, /*setting*/ ctx[6].value);
 
     			if (!mounted) {
     				dispose = listen_dev(input, "input", input_input_handler);
@@ -1324,8 +1457,8 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*Minecraft*/ 1 && to_number(input.value) !== /*setting*/ ctx[5].value) {
-    				set_input_value(input, /*setting*/ ctx[5].value);
+    			if (dirty & /*GameSettings*/ 1 && to_number(input.value) !== /*setting*/ ctx[6].value) {
+    				set_input_value(input, /*setting*/ ctx[6].value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -1339,17 +1472,17 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(14:16) {#if setting.type == \\\"int\\\"}",
+    		source: "(24:16) {#if setting.type == \\\"int\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (23:24) {#each setting.selectOf as additionalSetting}
+    // (33:24) {#each setting.selectOf as additionalSetting}
     function create_each_block_2(ctx) {
     	let option;
-    	let t_value = /*additionalSetting*/ ctx[10] + "";
+    	let t_value = /*additionalSetting*/ ctx[11] + "";
     	let t;
     	let option_value_value;
 
@@ -1357,18 +1490,18 @@ var app = (function () {
     		c: function create() {
     			option = element("option");
     			t = text(t_value);
-    			option.__value = option_value_value = /*additionalSetting*/ ctx[10];
+    			option.__value = option_value_value = /*additionalSetting*/ ctx[11];
     			option.value = option.__value;
-    			add_location(option, file, 23, 28, 979);
+    			add_location(option, file, 33, 28, 1194);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*Minecraft*/ 1 && t_value !== (t_value = /*additionalSetting*/ ctx[10] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*GameSettings*/ 1 && t_value !== (t_value = /*additionalSetting*/ ctx[11] + "")) set_data_dev(t, t_value);
 
-    			if (dirty & /*Minecraft*/ 1 && option_value_value !== (option_value_value = /*additionalSetting*/ ctx[10])) {
+    			if (dirty & /*GameSettings*/ 1 && option_value_value !== (option_value_value = /*additionalSetting*/ ctx[11])) {
     				prop_dev(option, "__value", option_value_value);
     				option.value = option.__value;
     			}
@@ -1382,32 +1515,32 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(23:24) {#each setting.selectOf as additionalSetting}",
+    		source: "(33:24) {#each setting.selectOf as additionalSetting}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (7:4) {#each Minecraft as setting}
+    // (17:4) {#each GameSettings as setting}
     function create_each_block_1(ctx) {
     	let div3;
     	let div0;
-    	let t0_value = /*setting*/ ctx[5].name + "";
+    	let t0_value = /*setting*/ ctx[6].name + "";
     	let t0;
     	let t1;
     	let div1;
     	let t2;
     	let div2;
-    	let t3_value = /*setting*/ ctx[5].tooltip + "";
+    	let t3_value = /*setting*/ ctx[6].tooltip + "";
     	let t3;
     	let t4;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*setting*/ ctx[5].type == "int") return create_if_block;
-    		if (/*setting*/ ctx[5].type == "str") return create_if_block_1;
-    		if (/*setting*/ ctx[5].type == "bool") return create_if_block_2;
-    		if (/*setting*/ ctx[5].type == "dropdown") return create_if_block_3;
+    		if (/*setting*/ ctx[6].type == "int") return create_if_block;
+    		if (/*setting*/ ctx[6].type == "str") return create_if_block_1;
+    		if (/*setting*/ ctx[6].type == "bool") return create_if_block_2;
+    		if (/*setting*/ ctx[6].type == "dropdown") return create_if_block_3;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -1426,13 +1559,13 @@ var app = (function () {
     			t3 = text(t3_value);
     			t4 = space();
     			attr_dev(div0, "class", "settings-header svelte-nozh0i");
-    			add_location(div0, file, 8, 12, 197);
+    			add_location(div0, file, 18, 12, 412);
     			attr_dev(div1, "class", "settings-input svelte-nozh0i");
-    			add_location(div1, file, 12, 12, 290);
+    			add_location(div1, file, 22, 12, 505);
     			attr_dev(div2, "class", "settings-tooltip");
-    			add_location(div2, file, 29, 12, 1158);
+    			add_location(div2, file, 39, 12, 1373);
     			attr_dev(div3, "class", "setting svelte-nozh0i");
-    			add_location(div3, file, 7, 8, 163);
+    			add_location(div3, file, 17, 8, 378);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -1447,7 +1580,7 @@ var app = (function () {
     			append_dev(div3, t4);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*Minecraft*/ 1 && t0_value !== (t0_value = /*setting*/ ctx[5].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*GameSettings*/ 1 && t0_value !== (t0_value = /*setting*/ ctx[6].name + "")) set_data_dev(t0, t0_value);
 
     			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
@@ -1461,7 +1594,7 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*Minecraft*/ 1 && t3_value !== (t3_value = /*setting*/ ctx[5].tooltip + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*GameSettings*/ 1 && t3_value !== (t3_value = /*setting*/ ctx[6].tooltip + "")) set_data_dev(t3, t3_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div3);
@@ -1476,20 +1609,20 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(7:4) {#each Minecraft as setting}",
+    		source: "(17:4) {#each GameSettings as setting}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:8) {#each Minecraft as setting}
+    // (49:8) {#each GameSettings as setting}
     function create_each_block(ctx) {
     	let code;
-    	let t0_value = /*setting*/ ctx[5].name + "";
+    	let t0_value = /*setting*/ ctx[6].name + "";
     	let t0;
     	let t1;
-    	let t2_value = /*setting*/ ctx[5].value + "";
+    	let t2_value = /*setting*/ ctx[6].value + "";
     	let t2;
     	let br;
 
@@ -1501,8 +1634,8 @@ var app = (function () {
     			t2 = text(t2_value);
     			br = element("br");
     			attr_dev(code, "class", "svelte-nozh0i");
-    			add_location(code, file, 39, 12, 1375);
-    			add_location(br, file, 39, 55, 1418);
+    			add_location(code, file, 49, 12, 1593);
+    			add_location(br, file, 49, 55, 1636);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, code, anchor);
@@ -1512,8 +1645,8 @@ var app = (function () {
     			insert_dev(target, br, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*Minecraft*/ 1 && t0_value !== (t0_value = /*setting*/ ctx[5].name + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*Minecraft*/ 1 && t2_value !== (t2_value = /*setting*/ ctx[5].value + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*GameSettings*/ 1 && t0_value !== (t0_value = /*setting*/ ctx[6].name + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*GameSettings*/ 1 && t2_value !== (t2_value = /*setting*/ ctx[6].value + "")) set_data_dev(t2, t2_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(code);
@@ -1525,7 +1658,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(39:8) {#each Minecraft as setting}",
+    		source: "(49:8) {#each GameSettings as setting}",
     		ctx
     	});
 
@@ -1540,7 +1673,7 @@ var app = (function () {
     	let h11;
     	let t4;
     	let pre;
-    	let each_value_1 = /*Minecraft*/ ctx[0];
+    	let each_value_1 = /*GameSettings*/ ctx[0];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -1548,7 +1681,7 @@ var app = (function () {
     		each_blocks_1[i] = create_each_block_1(get_each_context_1(ctx, each_value_1, i));
     	}
 
-    	let each_value = /*Minecraft*/ ctx[0];
+    	let each_value = /*GameSettings*/ ctx[0];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1578,13 +1711,13 @@ var app = (function () {
     			}
 
     			attr_dev(h10, "class", "svelte-nozh0i");
-    			add_location(h10, file, 4, 0, 69);
+    			add_location(h10, file, 14, 0, 281);
     			attr_dev(div, "class", "settings svelte-nozh0i");
-    			add_location(div, file, 5, 0, 99);
+    			add_location(div, file, 15, 0, 311);
     			attr_dev(h11, "class", "svelte-nozh0i");
-    			add_location(h11, file, 36, 0, 1284);
+    			add_location(h11, file, 46, 0, 1499);
     			attr_dev(pre, "class", "svelte-nozh0i");
-    			add_location(pre, file, 37, 4, 1320);
+    			add_location(pre, file, 47, 4, 1535);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1608,8 +1741,8 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*Minecraft*/ 1) {
-    				each_value_1 = /*Minecraft*/ ctx[0];
+    			if (dirty & /*GameSettings*/ 1) {
+    				each_value_1 = /*GameSettings*/ ctx[0];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -1632,8 +1765,8 @@ var app = (function () {
     				each_blocks_1.length = each_value_1.length;
     			}
 
-    			if (dirty & /*Minecraft*/ 1) {
-    				each_value = /*Minecraft*/ ctx[0];
+    			if (dirty & /*GameSettings*/ 1) {
+    				each_value = /*GameSettings*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
 
@@ -1685,7 +1818,16 @@ var app = (function () {
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Game', slots, []);
-    	const writable_props = [];
+    	let { Game = "" } = $$props;
+    	let GameSettings = "i";
+
+    	if (Game == "minecraft") {
+    		GameSettings = Minecraft;
+    	} else if (Game == "terraria") {
+    		GameSettings = Terraria;
+    	}
+
+    	const writable_props = ['Game'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Game> was created with unknown prop '${key}'`);
@@ -1693,29 +1835,43 @@ var app = (function () {
 
     	function input_input_handler(each_value_1, setting_index_1) {
     		each_value_1[setting_index_1].value = to_number(this.value);
-    		$$invalidate(0, Minecraft);
+    		$$invalidate(0, GameSettings);
     	}
 
     	function input_input_handler_1(each_value_1, setting_index_1) {
     		each_value_1[setting_index_1].value = this.value;
-    		$$invalidate(0, Minecraft);
+    		$$invalidate(0, GameSettings);
     	}
 
     	function input_change_handler(each_value_1, setting_index_1) {
     		each_value_1[setting_index_1].value = this.value;
     		each_value_1[setting_index_1].value = this.checked;
-    		$$invalidate(0, Minecraft);
+    		$$invalidate(0, GameSettings);
     	}
 
     	function select_change_handler(each_value_1, setting_index_1) {
     		each_value_1[setting_index_1].value = select_value(this);
-    		$$invalidate(0, Minecraft);
+    		$$invalidate(0, GameSettings);
     	}
 
-    	$$self.$capture_state = () => ({ Minecraft });
+    	$$self.$$set = $$props => {
+    		if ('Game' in $$props) $$invalidate(1, Game = $$props.Game);
+    	};
+
+    	$$self.$capture_state = () => ({ Game, Minecraft, Terraria, GameSettings });
+
+    	$$self.$inject_state = $$props => {
+    		if ('Game' in $$props) $$invalidate(1, Game = $$props.Game);
+    		if ('GameSettings' in $$props) $$invalidate(0, GameSettings = $$props.GameSettings);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
 
     	return [
-    		Minecraft,
+    		GameSettings,
+    		Game,
     		input_input_handler,
     		input_input_handler_1,
     		input_change_handler,
@@ -1723,23 +1879,31 @@ var app = (function () {
     	];
     }
 
-    class Game extends SvelteComponentDev {
+    class Game_1 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance, create_fragment, safe_not_equal, {});
+    		init(this, options, instance, create_fragment, safe_not_equal, { Game: 1 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "Game",
+    			tagName: "Game_1",
     			options,
     			id: create_fragment.name
     		});
     	}
+
+    	get Game() {
+    		throw new Error("<Game>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set Game(value) {
+    		throw new Error("<Game>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
     }
 
-    var Game$1 = /*#__PURE__*/Object.freeze({
+    var Game = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        'default': Game
+        'default': Game_1
     });
 
     return app;
