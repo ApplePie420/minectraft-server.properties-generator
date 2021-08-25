@@ -1,0 +1,320 @@
+[
+		{ 
+			"name": "spawn-protection",
+			"value": 16,
+			"type": "int",
+			"tooltip": "Determines the side length of the square spawn protection area as 2x+1. Setting this to 0 disables the spawn protection. A value of 1 protects a 3×3 square centered on the spawn point. 2 protects 5×5, 3 protects 7×7, etc. This option is not generated on the first server start and appears when the first player joins. If there are no ops set on the server, the spawn protection is disabled automatically as well. "
+		},
+		{
+			"name": "max-tick-time",
+			"value": 60000,
+			"type": "int",
+			"tooltip": "The maximum number of milliseconds a single tick may take before the server watchdog stops the server with the message, A single server tick took 60.00 seconds (should be max 0.05); "
+		},
+		{
+			"name": "query-port",
+			"value": 25565,
+			"type": "int",
+			"tooltip": "Sets the port for the query server (see enable-query). "
+		},
+		{
+			"name": "generator-setting",
+			"value": "",
+			"type": "str",
+			"tooltip": "The settings used to customize world generation. Follow its format and write the corresponding JSON string. Remember to escape all : with '\\:'. "
+		},
+		{
+			"name": "sync-chunk-writes",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Enables synchronous chunk writes. "
+		},
+		{
+			"name": "force-gamemode",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Force players to join in the default game mode. "
+		},
+		{
+			"name": "allow-nether",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Allows players to travel to the Nether."
+		},
+		{
+			"name": "enforce-whitelist",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Enforces the whitelist on the server. When this option is enabled, users who are not present on the whitelist (if it's enabled) get kicked from the server after the server reloads the whitelist file. "
+		},
+		{
+			"name": "gamemode",
+			"selectOf": [
+				"survival", "creative", "spectator"
+			],
+			"value": "survival",
+			"type": "dropdown",
+			"tooltip": "Defines the mode of gameplay. "
+		},
+		{
+			"name": "broadcast-console-to-ops",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Send console command outputs to all online operators."
+		},
+		{
+			"name": "enable-query",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Enables GameSpy4 protocol server listener. Used to get information about server. "
+		},
+		{
+			"name": "player-idle-timeout",
+			"value": 0,
+			"type": "int",
+			"tooltip": "If non-zero, players are kicked from the server if they are idle for more than that many minutes."
+		},
+		{
+			"name": "text-filtering-config",
+			"value": "",
+			"type": "str",
+			"tooltip": "Nobody seems to know what this does."
+		},
+		{
+			"name": "difficulty",
+			"selectOf": [
+				"peaceful", "easy", "medium", "hard"
+			],
+			"value": "mediun",
+			"type": "dropdown",
+			"tooltip": "Defines the difficulty (such as damage dealt by mobs and the way hunger and poison affects players) of the server. "
+		},
+		{
+			"name": "broadcast-rcon-to-ops",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Send rcon console command outputs to all online operators. "
+		},
+		{
+			"name": "spawn-monsters",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Determines if monsters can spawn. "
+		},
+		{
+			"name": "op-permission-level",
+			"value": 4,
+			"type": "int",
+			"tooltip": "Sets the default permission level for ops when using /op. "
+		},
+		{
+			"name": "pvp",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Enable PvP on the server. Players shooting themselves with arrows receive damage only if PvP is enabled. "
+		},
+		{
+			"name": "entity-broadcast-range-percentage",
+			"value": 100,
+			"type": "int",
+			"tooltip": "Controls how close entities need to be before being sent to clients. Higher values means they'll be rendered from farther away, potentially causing more lag. This is expressed the percentage of the default value."
+		},
+		{
+			"name": "snooper-enabled",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Sets whether the server sends snoop data regularly to http://snoop.minecraft.net. "
+		},
+		{
+			"name": "level-type",
+			"value": "default",
+			"type": "str",
+			"tooltip": "Determines the type of map that is generated. "
+		},
+		{
+			"name": "enable-status",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Makes the server appear as 'online' on the server list. "
+		},
+		{
+			"name": "resource-pack-prompt",
+			"value": "",
+			"type": "str",
+			"tooltip": "Optional, adds a custom message to be shown on resource pack prompt when require-resource-pack is used. "
+		},
+		{
+			"name": "hardcore",
+			"value": false,
+			"type": "bool",
+			"tooltip": "If set to true, server difficulty is ignored and set to hard and players are set to spectator mode if they die. "
+		},
+		{
+			"name": "enable-command-block",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Enables command blocks "
+		},
+		{
+			"name": "network-compression-threshold",
+			"value": 256,
+			"type": "int",
+			"tooltip": "By default it allows packets that are n-1 bytes big to go normally, but a packet of n bytes or more gets compressed down. So, a lower number means more compression but compressing small amounts of bytes might actually end up with a larger result than what went in. "
+		},
+		{
+			"name": "max-players",
+			"value": 20,
+			"type": "int",
+			"tooltip": "The maximum number of players that can play on the server at the same time. Note that more players on the server consume more resources. Note also, op player connections are not supposed to count against the max players, but ops currently cannot join a full server. However, this can be changed by going to the file called ops.json in the player's server directory, opening it, finding the op that the player wants to change, and changing the setting called bypassesPlayerLimit to true (the default is false). This means that that op does not have to wait for a player to leave in order to join. Extremely large values for this field result in the client-side user list being broken. "
+		},
+		{
+			"name": "max-world-size",
+			"value": 29999984,
+			"type": "int",
+			"tooltip": "This sets the maximum possible size in blocks, expressed as a radius, that the world border can obtain. Setting the world border bigger causes the commands to complete successfully but the actual border does not move past this block limit. Setting the max-world-size higher than the default doesn't appear to do anything. "
+		}, 
+		{
+			"name": "max-build-height",
+			"value": 256,
+			"type": "int",
+			"tooltip": "The maximum height allowed for building. Terrain may still naturally generate above a low height limit. 256 is the maximum possible, it also has to be a multiple of 8. "
+		},
+		{
+			"name": "resource-pack-sha1",
+			"value": "",
+			"type": "str",
+			"tooltip": "Optional SHA-1 digest of the resource pack, in lowercase hexadecimal. It is recommended to specify this, because it is used to verify the integrity of the resource pack. "
+		}, 
+		{
+			"name": "function-permission-level",
+			"value": 2,
+			"type": "int",
+			"tooltip": "Sets the default permission level for functions. "
+		},
+		{
+			"name": "rcon.port",
+			"value": 25575,
+			"type": "int",
+			"tooltip": "Sets the RCON network port. "
+		},
+		{
+			"name": "server-port",
+			"value": 25565,
+			"type": "int",
+			"tooltip": "Changes the port the server is hosting (listening) on. This port must be forwarded if the server is hosted in a network using NAT (if the player has a home router/firewall). "
+		},
+		{
+			"name": "server-ip",
+			"value": "",
+			"type": "str",
+			"tooltip": "The player should set this if they want the server to bind to a particular IP. It is strongly recommended that the player leaves server-ip blank. Set to blank, or the IP the player want their server to run (listen) on."
+		},
+		{
+			"name": "spawn-npcs",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Determines whether villagers can spawn. "
+		},
+		{
+			"name": "require-resource-pack",
+			"value": false,
+			"type": "bool",
+			"tooltip": "When this option is enabled (set to true), players will be prompted for a response and will be disconnected if they decline the required pack. "
+		},
+		{
+			"name": "allow-flight",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Allows users to use flight on the server while in Survival mode, if they have a mod that provides flight installed."
+		},
+		{
+			"name": "level-name",
+			"value": "world",
+			"type": "str",
+			"tooltip": "The 'level-name' value is used as the world name and its folder name. The player may also copy their saved game folder here, and change the name to the same as that folder's to load it instead. "
+		},
+		{
+			"name": "view-distance",
+			"value": 10,
+			"type": "int",
+			"tooltip": "Sets the amount of world data the server sends the client, measured in chunks in each direction of the player (radius, not diameter). It determines the server-side viewing distance. "
+		},
+		{
+			"name": "resource-pack",
+			"value": "",
+			"type": "str",
+			"tooltip": "Optional URI to a resource pack. The player may choose to use it. "
+		},
+		{
+			"name": "spawn-animals",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Determines if animals can spawn. "
+		},
+		{
+			"name": "white-list",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Enables a whitelist on the server. With a whitelist enabled, users not on the whitelist cannot connect. Intended for private servers, such as those for real-life friends or strangers carefully selected via an application process, for example. "
+		},
+		{
+			"name": "rcon.password",
+			"value": "",
+			"type": "str",
+			"tooltip": "Sets the password for RCON: a remote console protocol that can allow other applications to connect and interact with a Minecraft server over the internet. "
+		},
+		{
+			"name": "generate-structures",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Defines whether structures (such as villages) can be generated. Note: Dungeons will still be generated, even if set to false."
+		},
+		{
+			"name": "online-mode",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Server checks connecting players against Minecraft account database. Set this to false only if the player's server is not connected to the Internet. Hackers with fake accounts can connect if this is set to false! If minecraft.net is down or inaccessible, no players can connect if this is set to true. Setting this variable to off purposely is called 'cracking' a server, and servers that are present with online mode off are called 'cracked' servers, allowing players with unlicensed copies of Minecraft to join. "
+		},
+		{
+			"name": "level-seed",
+			"value": "",
+			"type": "str",
+			"tooltip": "Sets a world seed for the player's world, as in Singleplayer. The world generates with a random seed if left blank. "
+		},
+		{
+			"name": "prevent-proxy-connections",
+			"value": false,
+			"type": "bool",
+			"tooltip": "If the ISP/AS sent from the server is different from the one from Mojang Studios' authentication server, the player is kicked "
+		},
+		{
+			"name": "use-native-transport",
+			"value": true,
+			"type": "bool",
+			"tooltip": "Linux server performance improvements: optimized packet sending/receiving on Linux "
+		},
+		{
+			"name": "enable-jmx-monitoring",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Exposes an MBean with the Object name net.minecraft.server:type=Server and two attributes averageTickTime and tickTimes exposing the tick times in milliseconds. "
+		},
+		{
+			"name": "motd",
+			"value": "A Minecraft Server",
+			"type": "str",
+			"tooltip": "This is the message that is displayed in the server list of the client, below the name. "
+		},
+		{
+			"name": "rate-limit",
+			"value": 0,
+			"type": "int",
+			"tooltip": "Sets the maximum amount of packets a user can send before getting kicked. Setting to 0 disables this feature. "
+		},
+		{
+			"name": "enable-rcon",
+			"value": false,
+			"type": "bool",
+			"tooltip": "Enables remote access to the server console. "
+		}
+	]

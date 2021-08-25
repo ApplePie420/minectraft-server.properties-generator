@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import json from '@rollup/plugin-json'  
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -34,7 +35,8 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/bundle.js',
+		inlineDynamicImports : true
 	},
 	plugins: [
 		svelte({
@@ -68,7 +70,12 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		// So I can have games in JSON files instead of components, much more nicer :)
+		json({
+			compare: true,
+		}),
 	],
 	watch: {
 		clearScreen: false
